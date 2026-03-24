@@ -1,16 +1,18 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🧠 Project: MathNet-VLMDomain-Specific Visual Chain-of-Thought for Mathematics🎯 
+The ChallengeStandard VLMs struggle with math because they often treat numbers as "tokens" rather than "values." To solve this, our VLM focuses on OCR-to-Symbolic reasoning, where the model first transcribes the equation into LaTeX before solving it.
+## 🛠️ Updated Technical StackVision Encoder: ViT-L-14 (High resolution is key for small exponents and subscripts).
+## LLM Backbone: Llama-3-8B or Mistral-7B-v0.3 (Both have strong mathematical logic bases).
+## Data Format: We use the $\text{Socratic Method}$ for CoT.
+📂 Web Implementation (The "Math-Stream" Architecture)For a math-based web app, the user experience needs to feel like a digital tutor.
+1. The Backend (FastAPI + LateX Rendering)Since math is best read in LaTeX, your backend should return the CoT steps wrapped in $...$ delimiters.Python#
+2. Example logic in server/processor.py
+def generate_math_cot(image_tensor):
+    # The model is prompted to output in a specific schema:
+    # 1. Transcription (What is the equation?)
+    # 2. Identification (What rule applies? e.g., Power Rule, Integration by parts)
+    # 3. Steps (The actual calculation)
+    # 4. Final Result
+    return model.generate(image_tensor, prompt=math_prompt)
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📈 Specialized Data SourcesSince you're staying in a specific math domain (e.g., Algebra or Calculus), look into these datasets for fine-tuning:MATH-VQA: Images of textbook problems.CLEVR-Math: For visual counting and basic arithmetic logic.Synthetic Data: Generate 10,000+ problems using Python's SymPy library, take a screenshot of the LaTeX, and use the SymPy steps as your "Ground Truth" CoT.
